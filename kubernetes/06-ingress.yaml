@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: reels-chat-ingress
+  namespace: reels-chat
+  annotations:
+    # Annotation quan trọng cho WebSocket
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  rules:
+  - host: "reelschat.local"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-svc
+            port:
+              number: 80
+      - path: /socket.io
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-svc
+            port:
+              number: 80
