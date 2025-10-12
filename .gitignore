@@ -1,0 +1,4 @@
+# Bỏ qua các thư mục và file của Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
