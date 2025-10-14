@@ -1,10 +1,14 @@
 // Đây là file React giả lập để minh họa.
 // Bạn cần một môi trường build đầy đủ (như Vite hoặc Create React App) để chạy.
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 
-// Kết nối tới backend. URL này sẽ được inject qua ConfigMap trong K8s.
-const socket = io(process.env.REACT_APP_BACKEND_URL || "http://localhost:3001");
+// Xác định URL backend:
+// - Dev: mặc định localhost:3001
+// - Prod: mặc định theo origin của frontend (Ingress sẽ route /socket.io về backend)
+const backendUrl = (import.meta.env && import.meta.env.VITE_BACKEND_URL)
+  || (import.meta.env && import.meta.env.DEV ? 'http://localhost:3001' : window.location.origin);
+const socket = io(backendUrl);
 
 function App() {
   const [messages, setMessages] = useState([]);

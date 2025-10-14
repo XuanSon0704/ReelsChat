@@ -6,6 +6,5 @@ metadata:
 data:
   POSTGRES_DB: "chatdb"
   POSTGRES_USER: "chatuser"
-  DATABASE_URL: "postgresql://chatuser:NHcl79KM2A2UQVJN@postgres-svc:5432/chatdb"
   # URL cho frontend kết nối tới backend qua Ingress
   REACT_APP_BACKEND_URL: "http://reelschat.local"
