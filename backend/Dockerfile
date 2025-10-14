@@ -1,11 +1,11 @@
 # Stage 1: Dependencies & Build
-FROM node:16-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 # Stage 2: Production
-FROM node:16-alpine
+FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 COPY package*.json ./

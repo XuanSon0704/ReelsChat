@@ -28,10 +28,39 @@ spec:
     spec:
       containers:
       - name: backend
-        # Thay thế image này bằng ECR repo của bạn trong pipeline
-        image: node:16-alpine 
+        # Image sẽ được cập nhật bởi Jenkins pipeline
+        image: 476114143297.dkr.ecr.ap-southeast-1.amazonaws.com/reels-chat/backend:latest
         ports:
         - containerPort: 3001
-        envFrom:
-          - configMapRef:
+        env:
+        - name: PORT
+          value: "3001"
+        - name: ALLOWED_ORIGIN
+          valueFrom:
+            configMapKeyRef:
               name: reels-chat-config
+              key: REACT_APP_BACKEND_URL
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: chat-db-secret
+              key: DATABASE_URL
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3001
+          initialDelaySeconds: 3
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3001
+          initialDelaySeconds: 10
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
