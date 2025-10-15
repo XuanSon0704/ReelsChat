@@ -2,9 +2,15 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "dev": "Node_ENV=development node src/server.js",
+    "lint": "echo \"(add eslint later)\"",
+    "test": "echo \"(add tests later)\" && exit 0"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "keywords": [],
   "author": "",
