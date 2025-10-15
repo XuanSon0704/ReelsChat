@@ -55,10 +55,10 @@ pipeline {
                     
                     // Sử dụng kubectl để cập nhật image và rollout
                     sh "kubectl apply -f kubernetes/"
-                    sh "kubectl set image deployment/backend-deployment -n chat-app backend=${backendRepoUrl}:${env.BUILD_NUMBER}"
-                    sh "kubectl set image deployment/frontend-deployment -n chat-app frontend=${frontendRepoUrl}:${env.BUILD_NUMBER}"
-                    sh "kubectl rollout status deployment/backend-deployment -n chat-app"
-                    sh "kubectl rollout status deployment/frontend-deployment -n chat-app"
+                    sh "kubectl set image deployment/backend-deployment -n reels-chat backend=${backendRepoUrl}:${env.BUILD_NUMBER}"
+                    sh "kubectl set image deployment/frontend-deployment -n reels-chat frontend=${frontendRepoUrl}:${env.BUILD_NUMBER}"
+                    sh "kubectl rollout status deployment/backend-deployment -n reels-chat"
+                    sh "kubectl rollout status deployment/frontend-deployment -n reels-chat"
                 }
             }
         }
